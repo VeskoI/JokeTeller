@@ -21,8 +21,8 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile project(':jokeslibrary')
     compile 'com.android.support:appcompat-v7:22.2.0'
     compile 'com.google.android.gms:play-services-ads:7.5.0'
-    compile project(':jokerlib')
-    compile project(':jokeslibrary')
+    compile project(path: ':backend', configuration: 'android-endpoints')
 }
