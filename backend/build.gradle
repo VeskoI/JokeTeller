@@ -30,6 +30,7 @@ dependencies {
 }
 
 appengine {
+    daemon = true
     httpPort = 8081
     downloadSdk = true
     appcfg {

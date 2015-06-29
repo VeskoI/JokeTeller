@@ -17,3 +17,24 @@ allprojects {
         jcenter()
     }
 }
+
+task testLocally() {
+    doLast {
+        println "--- Tests passed, everything is awesome :) (see REPORTS folders for more details)"
+    }
+}
+
+afterEvaluate {
+    def startAppengineTask = tasks.findByPath(":backend:appengineRun")
+    def unitTests = tasks.findByPath(":jokerlib:test")
+    def androidTests = tasks.findByPath(":app:connectedAndroidTest")
+    def stopAppengine = tasks.findByPath(":backend:appengineStop")
+
+    testLocally.dependsOn startAppengineTask
+    testLocally.dependsOn unitTests
+    testLocally.dependsOn androidTests
+    testLocally.finalizedBy stopAppengine
+
+    unitTests.mustRunAfter startAppengineTask
+    androidTests.mustRunAfter unitTests
+}
