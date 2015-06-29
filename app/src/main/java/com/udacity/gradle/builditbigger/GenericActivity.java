@@ -1,18 +1,27 @@
 package com.udacity.gradle.builditbigger;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 
 
-public abstract class GenericActivity extends ActionBarActivity implements IJokeResult {
+public abstract class GenericActivity extends AppCompatActivity implements IJokeResult {
+
+    private Toolbar mToolbar;
+    private ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        mProgressBar = (ProgressBar) findViewById(R.id.progress_spinner);
     }
 
     @Override
@@ -38,7 +47,12 @@ public abstract class GenericActivity extends ActionBarActivity implements IJoke
     }
 
     public void tellJoke(View view) {
+        mProgressBar.setVisibility(View.VISIBLE);
         new EndpointsAsyncTask(true).execute(this);
+    }
+
+    public void hideLoadingProgress() {
+        mProgressBar.setVisibility(View.GONE);
     }
 
 }

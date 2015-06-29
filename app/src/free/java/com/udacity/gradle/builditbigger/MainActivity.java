@@ -2,7 +2,6 @@ package com.udacity.gradle.builditbigger;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -33,7 +32,6 @@ public class MainActivity extends GenericActivity {
     }
 
     private void requestNewInterstitial() {
-
         AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice("YOUR_DEVICE_HASH")
                 .build();
@@ -43,6 +41,7 @@ public class MainActivity extends GenericActivity {
 
     @Override
     public void onJokeFetched(String joke) {
+        hideLoadingProgress();
         mJoke = joke;
 
         if (mInterstitialAd.isLoaded()) {
